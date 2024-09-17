@@ -1,0 +1,7 @@
+-r base.txt
+
+# Code quality
+# ------------------------------------------------------------------------------
+mypy==1.11.1 # https://github.com/python/mypy
+ruff==0.6.1 # https://github.com/astral-sh/ruff
+pre-commit==3.8.0  # https://github.com/pre-commit/pre-commit
