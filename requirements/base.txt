@@ -1,0 +1,9 @@
+pydantic==2.9.1 # https://github.com/pydantic/pydantic
+# Django
+# ------------------------------------------------------------------------------
+django==5.1 # https://www.djangoproject.com/
+django-environ==0.11.2  # https://github.com/joke2k/django-environ==0.11.2  # https://github.com/joke2k/django-environ
+# Djano Rest Framework
+djangorestframework==3.15.2  # https://github.com/encode/django-rest-framework
+# DRF-spectacular for api documentation
+drf-spectacular==0.27.2  # https://github.com/tfranzel/drf-spectacular
