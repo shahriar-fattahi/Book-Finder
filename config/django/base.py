@@ -134,6 +134,8 @@ TEMPLATES = [
 SESSION_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
 CSRF_COOKIE_HTTPONLY = True
+CSRF_FAILURE_VIEW = "apps.api.csrf.csrf_failure_view"
+CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
 X_FRAME_OPTIONS = "DENY"
 
