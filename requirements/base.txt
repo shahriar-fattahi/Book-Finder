@@ -1,4 +1,5 @@
 pydantic==2.9.1 # https://github.com/pydantic/pydantic
+psycopg2-binary==2.9.9  # https://github.com/psycopg/psycopg
 # Django
 # ------------------------------------------------------------------------------
 django==5.1 # https://www.djangoproject.com/
