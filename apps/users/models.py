@@ -1,12 +1,16 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 
+from .managers import UserManager
+
 
 class User(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = "username"
+
+    objects = UserManager()
 
     def __str__(self) -> str:
         return self.username
