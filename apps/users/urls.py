@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .apis import SetCSRFCookie
+from .apis import LoginApi, SetCSRFCookieApi
 
 app_name = "users"
 
 urlpatterns = [
-    # path('login/', login_view, name='login'),
-    path("csrf-token/", SetCSRFCookie.as_view(), name="set-csrf-token"),
+    path("login/", LoginApi.as_view(), name="login"),
+    path("csrf-token/", SetCSRFCookieApi.as_view(), name="set-csrf-token"),
 ]
