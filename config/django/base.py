@@ -46,6 +46,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
 ]
 LOCAL_APPS = [
+    "apps.api.apps.ApiConfig",
     "apps.users.apps.UsersConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
