@@ -1,4 +1,4 @@
-# API Style Guide
+# API Style
 
 In the **Book Finder** project, we adhere to the [Django-Styleguide by HackSoftware](https://github.com/HackSoftware/Django-Styleguide) for structuring our API, particularly when it comes to handling data serialization. The styleguide provides clear, well-defined patterns for using Django Rest Framework serializers to ensure consistency, readability, and maintainability.
 
