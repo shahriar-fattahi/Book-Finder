@@ -34,7 +34,8 @@ By keeping these serializers separate, we maintain flexibility and clarity betwe
 class SomeApi(APIView):
     class InputSerializer(serializers.Serializer):
         ...
-    class OutputSerializer(serializers.Serializer)
+    class OutputSerializer(serializers.Serializer):
+        ...
 
     def get_queryset(self):
         ...
