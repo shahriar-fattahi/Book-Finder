@@ -62,5 +62,19 @@ Follow these steps to set up the project on your local machine:
   ```
 - then set DATABASE_URL like this:
   ```
-  DATABASE_URL="psql://postgres:postgres@127.0.0.1:5432/book_finder"
+  DATABASE_URL="psql://<user>:<password>@<host>:<port>/<database_name>"
   ```
+
+5. make migrations and migrate
+   ```
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+6. create an admin
+   ```
+   python manage.py createsuperuser
+   ```
+7. run the program
+   ```
+   python manage.py runserver
+   ```
