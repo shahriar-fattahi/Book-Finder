@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 from apps.users.schemas import User as UserSchema
 
-from .managers import BookManager
+from .managers import BookManager, ReviewManager
 
 
 class Review(BaseModel):
@@ -12,6 +12,8 @@ class Review(BaseModel):
     book: Union[int, "Book"]
     user: Union[int, UserSchema]
     rating: int = Field(ge=1, le=5)
+
+    objects: ClassVar["ReviewManager"] = ReviewManager(db_table_name="reviews")
 
 
 class Book(BaseModel):

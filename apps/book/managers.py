@@ -175,3 +175,14 @@ class BookManager(BaseModelManager):
 
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
+
+
+class ReviewManager(BaseModelManager):
+    def create(self, *args, **kwargs):
+        return super().create(*args, **kwargs)
+
+    def update(self, *args, **kwargs):
+        return super().update(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        return super().delete(*args, **kwargs)
