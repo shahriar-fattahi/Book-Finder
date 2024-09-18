@@ -1,6 +1,12 @@
 from django.urls import include, path
 
-from .apis import CreateReviewApi, DeleteReviewApi, ListBookApi, UpdateReviewApi
+from .apis import (
+    CreateReviewApi,
+    DeleteReviewApi,
+    ListBookApi,
+    SuggestBookApi,
+    UpdateReviewApi,
+)
 
 app_name = "book"
 
@@ -13,4 +19,5 @@ review_urls = [
 urlpatterns = [
     path("list/", ListBookApi.as_view(), name="list-book"),
     path("review/", include(review_urls)),
+    path("suggest/", SuggestBookApi.as_view(), name="suggest-book"),
 ]
