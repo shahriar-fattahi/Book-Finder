@@ -1,6 +1,7 @@
 from typing import List
 
 from django.http import Http404
+from django.urls import reverse
 from rest_framework import serializers, status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -51,8 +52,16 @@ class CreateReviewApi(APIView):
         def validate(self, attrs):
             book_id = attrs["book_id"]
             user_id = self.context["request"].user.id
-            if Review.objects.get(book_id=book_id, user_id=user_id):
-                raise serializers.ValidationError({"error": ""})
+            review = Review.objects.get(book_id=book_id, user_id=user_id)
+            if review:
+                update_url = reverse(
+                    "api:book:update-review", kwargs={"review_id": review.id}
+                )
+                raise serializers.ValidationError(
+                    {
+                        "error": f"You’ve already submitted a review for this book. Use this link to update it: {update_url}",
+                    }
+                )
             return super().validate(attrs)
 
     def post(self, request: Request) -> Response:
