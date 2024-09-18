@@ -178,6 +178,59 @@ class BookManager(BaseModelManager):
 
 
 class ReviewManager(BaseModelManager):
+    def get(
+        self,
+        review_id: Optional[int] = None,
+        book_id: Optional[int] = None,
+        user_id: Optional[int] = None,
+    ) -> Optional[BaseModel]:
+        if id:
+            with connection.cursor() as cursor:
+                try:
+                    query = f"""
+                            SELECT reviews.id, reviews.rating, users_user.id AS user_id, username, books.id as book_id, title, author, genre
+                            INNER JOIN books ON (reviews.book_id = books.id)
+                            INNER JOIN users_user ON (reviews.user_id = users_user.id)
+                            FROM {self.table} WHERE id = %s;
+                        """
+                    cursor.execute(
+                        query,
+                        [review_id],
+                    )
+                except Exception as e:
+                    raise e
+                else:
+                    data = dictfetchone(cursor=cursor)
+        else:
+            with connection.cursor() as cursor:
+                try:
+                    query = f"""
+                            SELECT reviews.id, reviews.rating, users_user.id AS user_id, username, books.id as book_id, title, author, genre
+                            INNER JOIN books ON (reviews.book_id = books.id)
+                            INNER JOIN users_user ON (reviews.user_id = users_user.id)
+                            FROM {self.table} WHERE reviews.book_id = %s AND reviews.user_id = %s;
+                        """
+                    cursor.execute(
+                        query,
+                        [book_id, user_id],
+                    )
+                except Exception as e:
+                    raise e
+                else:
+                    data = dictfetchone(cursor=cursor)
+
+        from .schemas import Book, Review
+
+        book = Book(
+            id=data["id"],
+            title=data["title"],
+            author=data["author"],
+            genre=data["genre"],
+        )
+        user = UserSchema(id=data["user_id"], username=data["username"])
+
+        return Review(id=data["book_id"], book=book, user=user)
+
     def create(
         self, user_id: int, book_id: int, rating: int
     ) -> Dict[str, Union[str, int]]:
