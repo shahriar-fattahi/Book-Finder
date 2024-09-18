@@ -13,7 +13,7 @@ class ListBookApi(APIView):
         genre = self.request.query_params.get("genre")
         if genre:
             return Book.objects.filter(genre=genre, user_id=self.request.user.id)
-        return Book.objects.all()
+        return Book.objects.all(user_id=self.request.user.id)
 
     def get(self, request: Request) -> Response:
         queryset = self.get_queryset()
