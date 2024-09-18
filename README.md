@@ -1,8 +1,14 @@
 # Book-Finder
 
-# Project Name
+# Book Finder
 
-Welcome to **Project Name**, a modern web application built using powerful technologies like Django, Django Rest Framework, and PostgreSQL. This project is designed to provide a scalable and robust backend, with type safety using Mypy, and advanced data validation using Pydantic.
+**Book Finder** is a RESTful API project designed to make discovering and reviewing books easy. Users can explore a curated list of books, submit their own reviews, and receive personalized reading suggestions based on various genres and interests.
+
+## Features
+
+- **Browse Books**: Access an extensive list of books across various genres.
+- **Submit Reviews**: Share your thoughts and opinions on the books you've read.
+- **Get Book Recommendations**: Receive personalized suggestions for your next read based on your review history and preferences.
 
 ## Technologies Used
 
