@@ -1,7 +1,14 @@
 # Book-Finder
 
 **Book Finder** is a RESTful API project designed to make discovering and reviewing books easy. Users can explore a curated list of books, submit their own reviews, and receive personalized reading suggestions based on various genres and interests.
-For **full documentation**, please visit: [Project Documentation](https://your-domain.com/docs)
+
+You can find **Detailed Documentation** for this project at the links below:
+
+- [API style]()
+- [Authentication system]()
+- [my ORM in this project]()
+- [What queries are used for each API endpoint?]()
+- [Recommender system]()
 
 ## Features
 
