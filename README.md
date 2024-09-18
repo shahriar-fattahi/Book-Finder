@@ -24,14 +24,6 @@
 
 ### 7. ![DRF-Spectacular](https://img.shields.io/badge/DRF--Spectacular-ff1709?logo=django&logoColor=white&style=for-the-badge)
 
-## Features
-
-- **Type-safe API**: Leverage Mypy for static type checking.
-- **API Documentation**: Auto-generate OpenAPI documentation using DRF-Spectacular.
-- **Environment Management**: Simplify configuration with Django-environ.
-- **Robust Data Validation**: Use Pydantic for runtime data validation.
-- **Database**: Use PostgreSQL as the relational database for persistence.
-
 ## Installation
 
 Follow these steps to set up the project on your local machine:
@@ -39,6 +31,36 @@ Follow these steps to set up the project on your local machine:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-project.git
-   cd your-project
+   git clone https://github.com/shahriar-fattahi/Book-Finder
+   cd Book-Finder
    ```
+
+2. Setup a Virtual Environment
+
+- for linux
+  ```bash
+  python3 -m venv venv
+  source venv/bin/activate
+  ```
+- for windows
+  ```bash
+  python -m venv venv
+  venv/scripts/activate
+  ```
+
+3. install Dependencies
+
+   ```bash
+   pip install -r requirements/local.txt
+   ```
+
+4. Create a PostgreSQL database and set the database URL in the .env file
+
+- first, create your .env file
+  ```bash
+  cp .env.example .env
+  ```
+- then set DATABASE_URL like this:
+  ```
+  DATABASE_URL="psql://postgres:postgres@127.0.0.1:5432/book_finder"
+  ```
