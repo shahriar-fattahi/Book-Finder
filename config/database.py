@@ -7,6 +7,9 @@ class BaseModelManager(ABC):
     At least one Manager exists for every model.
     """
 
+    def __init__(self, db_table_name: str) -> None:
+        self.table = db_table_name
+
     @abstractmethod
     def create(self, *args, **kwargs):
         pass
