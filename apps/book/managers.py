@@ -178,8 +178,20 @@ class BookManager(BaseModelManager):
 
 
 class ReviewManager(BaseModelManager):
-    def create(self, *args, **kwargs):
-        return super().create(*args, **kwargs)
+    def create(
+        self, user_id: int, book_id: int, rating: int
+    ) -> Dict[str, Union[str, int]]:
+        query = f"""
+                    INSERT INTO {self.table}(user_id, book_id, rating)
+                    VALUES (%s, %s, %s) RETURNING *;
+                """
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query, [user_id, book_id, rating])
+            except Exception as e:
+                raise e
+            else:
+                return dictfetchone(cursor=cursor)
 
     def update(self, *args, **kwargs):
         return super().update(*args, **kwargs)
