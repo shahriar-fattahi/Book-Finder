@@ -10,10 +10,21 @@ from .schemas import Book
 
 class ListBookApi(APIView):
     def get_queryset(self) -> List[Book]:
+        limit = self.request.query_params.get("limit", 21)
+        offset = self.request.query_params.get("offset", 0)
         genre = self.request.query_params.get("genre")
         if genre:
-            return Book.objects.filter(genre=genre, user_id=self.request.user.id)
-        return Book.objects.all(user_id=self.request.user.id)
+            return Book.objects.filter(
+                genre=genre,
+                user_id=self.request.user.id,
+                limit=limit,
+                offset=offset,
+            )
+        return Book.objects.all(
+            user_id=self.request.user.id,
+            limit=limit,
+            offset=offset,
+        )
 
     def get(self, request: Request) -> Response:
         queryset = self.get_queryset()

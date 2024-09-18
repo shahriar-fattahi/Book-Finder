@@ -63,15 +63,16 @@ class BookManager(BaseModelManager):
                         )
                 return book
 
-    def all(self, user_id: int):
+    def all(self, user_id: int, limit: int = 21, offset: int = 0):
         from .schemas import Book, Review
 
         with connection.cursor() as cursor:
             try:
                 query = f"""
-                        SELECT id, title, author, genre FROM {self.table};
+                        SELECT id, title, author, genre FROM {self.table}
+                        LIMIT %s OFFSET %s;
                     """
-                cursor.execute(query)
+                cursor.execute(query, [limit, offset])
             except Exception as e:
                 raise e
             else:
@@ -109,18 +110,21 @@ class BookManager(BaseModelManager):
                                 )
                 return books
 
-    def filter(self, genre, user_id) -> List[BaseModel]:
+    def filter(
+        self, genre, user_id, limit: int = 21, offset: int = 0
+    ) -> List[BaseModel]:
         from .schemas import Book, Review
 
         with connection.cursor() as cursor:
             try:
                 query = f"""
                         SELECT id, title, author, genre FROM {self.table} 
-                        WHERE genre = %s;
+                        WHERE genre = %s
+                        LIMIT %s OFFSET %s;
                     """
                 cursor.execute(
                     query,
-                    [genre],
+                    [genre, limit, offset],
                 )
             except Exception as e:
                 raise e
