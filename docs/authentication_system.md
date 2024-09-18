@@ -1,6 +1,6 @@
 # Authentication System
 
-In this project, we use a token-based authentication system with the [Knox package](https://github.com/jazzband/django-rest-knox), which offers several advantages over the default system in Django Rest Framework (DRF):
+In this project, I use a token-based authentication system with the [Knox package](https://github.com/jazzband/django-rest-knox), which offers several advantages over the default system in Django Rest Framework (DRF):
 
 - **Multiple Tokens**: DRF allows only one token per user, making it hard to securely sign in from multiple devices. Knox provides a unique token for each login, allowing every device to have its own token, which is securely deleted when the user logs out.
 
