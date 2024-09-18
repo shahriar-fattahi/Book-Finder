@@ -1,5 +1,6 @@
 from typing import List
 
+from django.http import Http404
 from rest_framework import serializers, status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -68,3 +69,26 @@ class CreateReviewApi(APIView):
             data=response_data,
             status=status.HTTP_201_CREATED,
         )
+
+
+class UpdateReviewApi(APIView):
+    class InputSerializer(serializers.Serializer):
+        rating = serializers.IntegerField(max_value=5, min_value=1)
+
+    def get_object(self):
+        review_id = self.kwargs["review_id"]
+        review = Review.objects.get(review_id=review_id)
+
+        if review is None or review.user.id != self.request.user.id:
+            raise Http404
+
+        return review
+
+    def put(self, request: Request, review_id: int) -> Response:
+        review = self.get_object()
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        Review.objects.update(
+            review_id=review.id, rating=serializer.validated_data["rating"]
+        )
+        return Response(status=status.HTTP_200_OK)

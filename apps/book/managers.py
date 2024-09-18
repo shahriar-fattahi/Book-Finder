@@ -253,8 +253,16 @@ class ReviewManager(BaseModelManager):
     def all(self, *args, **kwargs):
         return super().all(*args, **kwargs)
 
-    def update(self, *args, **kwargs):
-        return super().update(*args, **kwargs)
+    def update(self, *, review_id: int, rating: int) -> None:
+        query = f"""
+                    UPDATE {self.table} SET rating = %s
+                    WHERE id = %s;
+                """
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query, [rating, review_id])
+            except Exception as e:
+                raise e
 
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
