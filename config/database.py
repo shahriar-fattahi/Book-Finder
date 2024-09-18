@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any, Dict, List
 
 
 class BaseModelManager(ABC):
@@ -31,9 +32,18 @@ class BaseModelManager(ABC):
         pass
 
 
-def dictfetchall(cursor):
+def dictfetchone(cursor) -> Dict[str, Any]:
     """
-    Return all rows from a cursor as a dict.
+    Return first rows from a cursor as a dict.
+    Assume the column names are unique.
+    """
+    columns = [col[0] for col in cursor.description]
+    return dict(zip(columns, cursor.fetchone()))
+
+
+def dictfetchall(cursor) -> List[Dict[str, Any]]:
+    """
+    Return all rows from a cursor as a list of dict.
     Assume the column names are unique.
     """
     columns = [col[0] for col in cursor.description]
