@@ -8,7 +8,7 @@ class BaseModelManager(ABC):
     """
 
     @abstractmethod
-    def create(self):
+    def create(self, *args, **kwargs):
         pass
 
     @abstractmethod
