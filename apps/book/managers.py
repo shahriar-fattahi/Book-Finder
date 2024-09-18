@@ -8,7 +8,9 @@ from config.database import BaseModelManager, dictfetchall, dictfetchone
 
 
 class BookManager(BaseModelManager):
-    def create(self, *, title, auther, genre) -> Dict[str, Union[str, int]]:
+    def create(
+        self, *, title: str, auther: str, genre: str
+    ) -> Dict[str, Union[str, int]]:
         query = f"""
                     INSERT INTO {self.table}(title, author, genre)
                     VALUES (%s, %s, %s) RETURNING *;
