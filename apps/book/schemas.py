@@ -1,7 +1,8 @@
 from typing import ClassVar, List, Union
 
 from pydantic import BaseModel, Field
-from users.schemas import User as UserSchema
+
+from apps.users.schemas import User as UserSchema
 
 from .managers import BookManager
 
@@ -18,7 +19,7 @@ class Book(BaseModel):
     title: str = Field(max_length=255)
     author: str = Field(max_length=255)
     genre: str = Field(max_length=255)
-    reviews: List[Review]
+    reviews: List[Review] = Field(default=[])
 
     objects: ClassVar["BookManager"] = BookManager(db_table_name="books")
 
