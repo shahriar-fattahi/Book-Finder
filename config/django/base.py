@@ -1,4 +1,5 @@
 # ruff: noqa: ERA001, E501
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -44,6 +45,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_spectacular",
+    "knox",
 ]
 LOCAL_APPS = [
     "apps.api.apps.ApiConfig",
@@ -145,9 +147,7 @@ X_FRAME_OPTIONS = "DENY"
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
-    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": ("knox.auth.TokenAuthentication",),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
@@ -158,4 +158,8 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
     "SCHEMA_PATH_PREFIX": "/api/",
+}
+
+REST_KNOX = {
+    "TOKEN_TTL": timedelta(hours=1),
 }
