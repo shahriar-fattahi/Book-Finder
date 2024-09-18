@@ -63,7 +63,12 @@ class BookManager(BaseModelManager):
                         )
                 return book
 
-    def all(self, user_id: int, limit: int = 21, offset: int = 0):
+    def all(
+        self,
+        user_id: int,
+        limit: int = 21,
+        offset: int = 0,
+    ) -> List[BaseModel]:
         from .schemas import Book, Review
 
         with connection.cursor() as cursor:
