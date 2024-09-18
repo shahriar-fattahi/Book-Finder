@@ -22,8 +22,9 @@ LIMIT 5;
 ```
 
 - Recommend Books:
-  -- Let's say your top five genres are ranked in this order:
-  `['Cooking', 'History', 'Adventure', 'Travel', 'Mystery']`
+
+-- Let's say your top five genres are ranked in this order:
+`['Cooking', 'History', 'Adventure', 'Travel', 'Mystery']`
 
 ```sql
 SELECT id, title, author, genre
