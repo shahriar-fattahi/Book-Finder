@@ -37,3 +37,24 @@ Token-based authentication offers a secure and efficient way for the frontend an
 If a user’s token is compromised, it can be easily revoked from the server-side by deleting it from the database, instantly invalidating the token.
 
 For this small project, token-based authentication is both fast and secure, making it an ideal choice.
+
+### How to Authenticate
+
+1. **Visit the Login URL**: Access the following URL to log in:
+   `/api/users/login/`
+
+2. **Set Authorization Header**: In the header section of your request, include the following:
+
+```shell
+--header 'Authorization: Basic YWRtaW46MTIz'
+```
+
+Here, `YWRtaW46MTIz` is the base64-encoded value for `username:password`.
+
+3. **Receive Your Token**: You will receive a token in the response.
+
+4. **Use the Token for Authentication**: For each request that requires authentication, include the token in the header like this:
+
+```shell
+--header 'Authorization: Token ad66b1b56876e67e861d81678e19d006dc6e5c4fb8d50e137ccf75ec70920f78'
+```
