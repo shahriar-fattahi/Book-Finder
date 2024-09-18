@@ -37,8 +37,11 @@ def dictfetchone(cursor) -> Dict[str, Any]:
     Return first rows from a cursor as a dict.
     Assume the column names are unique.
     """
+    row = cursor.fetchone()
+    if row is None:
+        return None
     columns = [col[0] for col in cursor.description]
-    return dict(zip(columns, cursor.fetchone()))
+    return dict(zip(columns, row))
 
 
 def dictfetchall(cursor) -> List[Dict[str, Any]]:
