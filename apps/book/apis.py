@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .schemas import Book, Review
+from .utils import recommend_based_on_genre
 
 
 class ListBookApi(APIView):
@@ -117,3 +118,27 @@ class DeleteReviewApi(APIView):
         review = self.get_object()
         Review.objects.delete(review_id=review.id)
         return Response(status=status.HTTP_200_OK)
+
+
+class SuggestBookApi(APIView):
+    def get_queryset(self) -> List[Book]:
+        limit = self.request.query_params.get("limit", 21)
+        offset = self.request.query_params.get("offset", 0)
+        books = recommend_based_on_genre(
+            user_id=self.request.user.id,
+            limit=limit,
+            offset=offset,
+        )
+
+        return books
+
+    def get(self, request: Request) -> Response:
+        queryset = self.get_queryset()
+        if isinstance(queryset, str):
+            serialized_data = {"detail": queryset}
+        else:
+            serialized_data = [book.model_dump() for book in queryset]
+        return Response(
+            data=serialized_data,
+            status=status.HTTP_200_OK,
+        )

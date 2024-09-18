@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Optional, Union
 
 from django.db import connection
 
@@ -7,7 +7,9 @@ from config.database import dictfetchall
 from .schemas import Book
 
 
-def recommend_based_on_genre(user_id: int) -> Union[List[Book], str]:
+def recommend_based_on_genre(
+    user_id: int, limit: Optional[int] = 21, offset: Optional[int] = 0
+) -> Union[List[Book], str]:
     with connection.cursor() as cursor:
         try:
             query = """
@@ -35,16 +37,17 @@ def recommend_based_on_genre(user_id: int) -> Union[List[Book], str]:
                 order = "ORDER BY \n   CASE genre \n"
                 for index, genre in enumerate(genres):
                     order += f"\t  WHEN '{genre}' THEN {index+1} \n"
-                order += "   END"
+                order += "   END \n"
 
                 query = f"""
                             SELECT id, title, author, genre
                             FROM books
                             WHERE genre IN {*genres,}
                             {order}
-                            LIMIT 21;
+                            LIMIT %s
+                            OFFSET %s;
                         """
-                cursor.execute(query, [order])
+                cursor.execute(query, [limit, offset])
             except Exception as e:
                 raise e
             else:
