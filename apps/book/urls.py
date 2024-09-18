@@ -1,13 +1,13 @@
 from django.urls import include, path
 
-from .apis import CreateReviewApi, ListBookApi, UpdateReviewApi
+from .apis import CreateReviewApi, DeleteReviewApi, ListBookApi, UpdateReviewApi
 
 app_name = "book"
 
 review_urls = [
     path("create/", CreateReviewApi.as_view(), name="add-review"),
     path("<int:review_id>/update/", UpdateReviewApi.as_view(), name="update-review"),
-    path("create/", CreateReviewApi.as_view(), name="add-review"),
+    path("<int:review_id>/delete/", DeleteReviewApi.as_view(), name="delete-review"),
 ]
 
 urlpatterns = [

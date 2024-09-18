@@ -101,3 +101,19 @@ class UpdateReviewApi(APIView):
             review_id=review.id, rating=serializer.validated_data["rating"]
         )
         return Response(status=status.HTTP_200_OK)
+
+
+class DeleteReviewApi(APIView):
+    def get_object(self):
+        review_id = self.kwargs["review_id"]
+        review = Review.objects.get(review_id=review_id)
+
+        if review is None or review.user.id != self.request.user.id:
+            raise Http404
+
+        return review
+
+    def delete(self, request: Request, review_id: int) -> Response:
+        review = self.get_object()
+        Review.objects.delete(review_id=review.id)
+        return Response(status=status.HTTP_200_OK)

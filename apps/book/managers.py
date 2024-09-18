@@ -264,5 +264,13 @@ class ReviewManager(BaseModelManager):
             except Exception as e:
                 raise e
 
-    def delete(self, *args, **kwargs):
-        return super().delete(*args, **kwargs)
+    def delete(self, *, review_id: int):
+        query = f"""
+                    DELETE FROM {self.table}
+                    WHERE id = %s;
+                """
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query, [review_id])
+            except Exception as e:
+                raise e
