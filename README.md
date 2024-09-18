@@ -4,11 +4,11 @@
 
 You can find **Detailed Documentation** for this project at the links below:
 
-- [API style]()
-- [Authentication system]()
-- [my ORM in this project]()
-- [What queries are used for each API endpoint?]()
-- [Recommender system]()
+- [API style](https://github.com/shahriar-fattahi/Book-Finder/blob/main/docs/API_style.md)
+- [Authentication system](https://github.com/shahriar-fattahi/Book-Finder/blob/main/docs/authentication_system.md)
+- [my ORM in this project](https://github.com/shahriar-fattahi/Book-Finder/blob/main/docs/my_ORM.md)
+- [What queries are used for each API endpoint?](https://github.com/shahriar-fattahi/Book-Finder/blob/main/docs/queries_in_urls.md)
+- [Recommender system](https://github.com/shahriar-fattahi/Book-Finder/blob/main/docs/recommener_system.md)
 
 ## Features
 
