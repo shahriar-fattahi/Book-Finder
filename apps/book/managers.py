@@ -184,14 +184,15 @@ class ReviewManager(BaseModelManager):
         book_id: Optional[int] = None,
         user_id: Optional[int] = None,
     ) -> Optional[BaseModel]:
-        if id:
+        if review_id:
             with connection.cursor() as cursor:
                 try:
                     query = f"""
                             SELECT reviews.id, reviews.rating, users_user.id AS user_id, username, books.id as book_id, title, author, genre
+                            FROM {self.table}
                             INNER JOIN books ON (reviews.book_id = books.id)
                             INNER JOIN users_user ON (reviews.user_id = users_user.id)
-                            FROM {self.table} WHERE id = %s;
+                            WHERE reviews.id = %s;
                         """
                     cursor.execute(
                         query,
@@ -206,9 +207,10 @@ class ReviewManager(BaseModelManager):
                 try:
                     query = f"""
                             SELECT reviews.id, reviews.rating, users_user.id AS user_id, username, books.id as book_id, title, author, genre
+                            FROM {self.table}
                             INNER JOIN books ON (reviews.book_id = books.id)
                             INNER JOIN users_user ON (reviews.user_id = users_user.id)
-                            FROM {self.table} WHERE reviews.book_id = %s AND reviews.user_id = %s;
+                            WHERE reviews.book_id = %s AND reviews.user_id = %s;
                         """
                     cursor.execute(
                         query,
@@ -219,17 +221,19 @@ class ReviewManager(BaseModelManager):
                 else:
                     data = dictfetchone(cursor=cursor)
 
+        if data is None:
+            return None
         from .schemas import Book, Review
 
         book = Book(
-            id=data["id"],
+            id=data["book_id"],
             title=data["title"],
             author=data["author"],
             genre=data["genre"],
         )
         user = UserSchema(id=data["user_id"], username=data["username"])
 
-        return Review(id=data["book_id"], book=book, user=user)
+        return Review(id=data["id"], book=book, user=user, rating=data["rating"])
 
     def create(
         self, user_id: int, book_id: int, rating: int
@@ -245,6 +249,9 @@ class ReviewManager(BaseModelManager):
                 raise e
             else:
                 return dictfetchone(cursor=cursor)
+
+    def all(self, *args, **kwargs):
+        return super().all(*args, **kwargs)
 
     def update(self, *args, **kwargs):
         return super().update(*args, **kwargs)
